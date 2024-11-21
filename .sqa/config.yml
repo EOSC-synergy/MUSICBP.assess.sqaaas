@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/lsmeng/MUSICBP:
+      branch: master
+      repo: https://github.com/lsmeng/MUSICBP
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/lsmeng/MUSICBP git:
+        commands:
+        - /usr/bin/env sh .sqa/script.leaky-goldenrod-termite.sh
+        container: qc.acc_stuffy-orange-bonobo
+  QC.Doc:
+    repos:
+      github.com/lsmeng/MUSICBP find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.shaggy-brass-slug.sh
+        container: qc.doc_hazy-lemon-husky
+      github.com/lsmeng/MUSICBP git:
+        commands:
+        - /usr/bin/env sh .sqa/script.slimy-wisteria-spaniel.sh
+        container: qc.doc_shaky-aqua-cuscus
+      github.com/lsmeng/MUSICBP markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.nippy-cyan-uakari.sh
+        container: qc.doc_slimy-khaki-bobcat
+  QC.Lic:
+    repos:
+      github.com/lsmeng/MUSICBP licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.silly-white-dingo.sh
+        container: qc.lic_shabby-black-chimpanzee
+  QC.Ver:
+    repos:
+      github.com/lsmeng/MUSICBP get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.thirsty-aquamarine-butterfly.sh
+        container: qc.ver_wheezy-ultramarine-uguisu
+timeout: 5400
